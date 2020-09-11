@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  outline: 0 none !important;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 75.5%;
+}
+
+html,
+body,
+#root {
+  background: #111D27;
+  color: aliceblue;
+  position: relative;
+  font-family: 'Hackman', sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
