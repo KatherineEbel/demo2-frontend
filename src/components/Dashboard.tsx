@@ -8,11 +8,12 @@ const StyledDashboard = styled.div`
     padding: 10px;
   }
 `
-export const Dashboard = ({ data }) => {
+export const Dashboard = () => {
+  const appData = useApp()
   return (
     <StyledDashboard>
       <ReactJson
-        src={data}
+        src={appData}
         theme="summerfruit:inverted"
         iconStyle="triangle"
         collapsed

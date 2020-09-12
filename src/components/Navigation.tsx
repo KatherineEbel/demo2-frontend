@@ -18,7 +18,7 @@ const StyledNavigation = styled.nav`
 export const Navigation: FunctionComponent = () => {
   const appState = useApp()
   const routes = {
-    '/': () => <Dashboard data={appState} />
+    '/': () => <Dashboard />
   }
   const handleRoute = r => {
     navigate(r)

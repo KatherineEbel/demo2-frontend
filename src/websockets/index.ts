@@ -3,7 +3,8 @@ export enum MessageType {
   ValidateJwt = 'validate-jwt',
   WSConnectSuccess = 'websocket-connect-success',
   WSVerifiedJwt = 'ws-verified-jwt',
-  RegisterClient = 'register-client'
+  RegisterClient = 'register-client',
+  ClientWebSocketId = 'client-websocket-id'
 }
 
 export type RequestFunc = (

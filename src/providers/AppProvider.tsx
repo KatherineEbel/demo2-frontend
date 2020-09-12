@@ -15,14 +15,13 @@ type ContextProps = {
   webSocketId: string
   // setWebSocketId: (id: string) => void
   jwt: string
-  setJwt: (jwt: string) => void
+  // setJwt: (jwt: string) => void
   request: RequestFunc
 }
 
 const [useApp, CtxProvider] = createCtx<ContextProps>()
 
 const AppProvider = ({ children }: Props) => {
-  const targets: any[] = []
   const [routeResult, setRouteResult] = useState('/')
   // const [mongoTargets, setMongoTargets] = useState(targets)
   const [readyState, setReadyState] = useState(0)
@@ -50,11 +49,13 @@ const AppProvider = ({ children }: Props) => {
     if (webSocket === null) throw new Error('WebSocket not initialized')
     webSocket.onopen = () => {
       webSocket.onmessage = (event: MessageEvent) => {
-        console.log(event)
         let tjo = JSON.parse(event.data)
-        switch (tjo['type'] as MessageType) {
+        switch (tjo.type as MessageType) {
+          case MessageType.ClientWebSocketId:
+            console.log(tjo['type'])
+            break
           case MessageType.WSConnectSuccess:
-            setWebSocketId(tjo['data'])
+            setWebSocketId(tjo.data)
             break
           case MessageType.WSVerifiedJwt:
             setJwt(tjo['data'])
