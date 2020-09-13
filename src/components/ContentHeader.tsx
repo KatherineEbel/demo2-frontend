@@ -45,11 +45,10 @@ const StyledContentHeader = styled.div`
   }
 `
 export default () => {
-  const { webSocketId, setUser, request } = useApp()
+  const { webSocketId, request, authorized, logOut } = useApp()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const handleLogin = async () => {
-    setUser({ email, password })
     await request(
       VOID_JWT,
       MessageType.GetJWT,
@@ -70,22 +69,28 @@ export default () => {
         <span className="app-italic">??</span>
       </div>
       <div className="login-inputs">
-        <input
-          type="text"
-          placeholder="email"
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={e => setPassword(e.target.value)}
-        />
-        <Button
-          text="Log In"
-          type="button"
-          classes={['text-link-btn']}
-          onClick={handleLogin}
-        />
+        {!authorized ? (
+          <>
+            <input
+              type="text"
+              placeholder="email"
+              onChange={e => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={e => setPassword(e.target.value)}
+            />
+            <Button
+              text="Log In"
+              type="button"
+              classes={['text-link-btn']}
+              onClick={handleLogin}
+            />
+          </>
+        ) : (
+          <Button type="button" text="Log Out" onClick={logOut} />
+        )}
       </div>
     </StyledContentHeader>
   )

@@ -11,8 +11,9 @@ type ContextProps = {
   webSocketId: string
   jwt: string
   user: User
-  setUser: (user: User) => void
+  // setUser: (user: User) => void
   request: RequestFunc
+  logOut: () => void
 }
 
 const [useApp, CtxProvider] = createCtx<ContextProps>()
@@ -26,6 +27,12 @@ const AppProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User>(null)
   const [authorized, setAuthorized] = useState(false)
 
+  const logOut = () => {
+    setJwt(VOID_JWT)
+    setUser(null)
+    setAuthorized(false)
+    window.localStorage.removeItem('demo2JWT')
+  }
   const heartbeat = async () => {
     setTimeout(() => {
       if (readyState !== webSocket.readyState) {
@@ -131,12 +138,13 @@ const AppProvider = ({ children }: Props) => {
         authorized,
         routeResult,
         setRouteResult,
+        logOut,
         request,
         readyState,
         jwt,
         user,
-        webSocketId,
-        setUser
+        webSocketId
+        // setUser,
       }}
     >
       {children}
