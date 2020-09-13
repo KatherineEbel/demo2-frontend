@@ -9,7 +9,6 @@
   },
   "author": "",
   "license": "ISC",
-  "types": "dist/styled.d.ts",
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",

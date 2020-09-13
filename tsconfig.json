@@ -4,6 +4,7 @@
     "target": "ES6",
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": ["ES6", "ES2017.Object", "DOM", "ESNext"]
+    "lib": ["ES6", "ES2017.Object", "DOM", "ESNext"],
+    "moduleResolution": "Node"
   }
 }

@@ -1,10 +1,14 @@
+export const VOID_JWT = '^jWt^'
+
 export enum MessageType {
   GetJWT = 'get-jwt',
   ValidateJwt = 'validate-jwt',
-  WSConnectSuccess = 'websocket-connect-success',
   WSVerifiedJwt = 'ws-verified-jwt',
-  RegisterClient = 'register-client',
-  ClientWebSocketId = 'client-websocket-id'
+  JwtToken = 'jwt-token',
+  JwtValid = 'jwt-valid',
+  InvalidCredentials = 'invalid-credentials',
+  ClientWebSocketId = 'client-websocket-id',
+  FatClientList = 'fat-client-list'
 }
 
 export type RequestFunc = (

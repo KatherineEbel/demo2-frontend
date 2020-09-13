@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from './Button'
 import { useApp } from '../providers/AppProvider'
+import { MessageType, VOID_JWT } from '../websockets'
 
 const StyledContentHeader = styled.div`
   min-height: 3rem;
@@ -44,31 +45,46 @@ const StyledContentHeader = styled.div`
   }
 `
 export default () => {
-  const { webSocketId } = useApp()
+  const { webSocketId, setUser, request } = useApp()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const handleLogin = async () => {
+    setUser({ email, password })
+    await request(
+      VOID_JWT,
+      MessageType.GetJWT,
+      JSON.stringify({
+        email: btoa(email),
+        password: btoa(password)
+      })
+    )
+    setEmail('')
+    setPassword('')
+  }
   return (
     <StyledContentHeader>
       <div className="ws-client-id">
-        <span className="app-label">Client Id:</span>
-        <span className="app-italic">??</span>
-        <span className="app-label">Interacting with:</span>
+        <span className="app-label">Client Id: </span>
         <span className="app-italic">{webSocketId}</span>
+        <span className="app-label">Interacting with:</span>
+        <span className="app-italic">??</span>
       </div>
       <div className="login-inputs">
         <input
           type="text"
-          placeholder="username"
-          onChange={e => console.log(e)}
+          placeholder="email"
+          onChange={e => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="password"
-          onChange={e => console.log(e)}
+          onChange={e => setPassword(e.target.value)}
         />
         <Button
           text="Log In"
           type="button"
           classes={['text-link-btn']}
-          onClick={() => console.log('Login')}
+          onClick={handleLogin}
         />
       </div>
     </StyledContentHeader>
