@@ -4,6 +4,7 @@ import { Button } from './Button'
 import { Navigation } from './Navigation'
 import { Main } from './Main'
 import ContentHeader from './ContentHeader'
+import { Console } from './Console'
 
 const StyledApp = styled.div`
   //background: #101e41;
@@ -11,6 +12,7 @@ const StyledApp = styled.div`
   position: relative;
   top: 0;
   left: 0;
+  height: 100vh;
 
   display: grid;
   grid-template-columns: 20rem 1fr;
@@ -35,9 +37,11 @@ const StyledApp = styled.div`
     border: 1px dashed #ccc;
     border-radius: 2px;
     min-height: 1.5rem;
+    max-height: 3rem;
     display: flex;
     flex-direction: row;
     padding: 5px;
+    justify-content: right;
 
     .input {
       width: 100%;
@@ -54,13 +58,17 @@ export const App = () => {
       <ContentHeader />
       <Navigation />
       <Main />
+      <Console />
       <div className="console" />
       <div className="command-interpreter">
-        <input type="text" onChange={() => {}} />
-        <Button text="Shift" type="keyboard-indicator" />
-        <Button text="<--" type="keyboard-indicator" />
-        <Button text="-->" type="keyboard-indicator" />
-        <Button text="Enter" type="keyboard-indicator" />
+        <div />
+        <div className="controls">
+          <input type="text" onChange={() => {}} />
+          <Button text="Shift" type="keyboard-indicator" />
+          <Button text="<--" type="keyboard-indicator" />
+          <Button text="-->" type="keyboard-indicator" />
+          <Button text="Enter" type="keyboard-indicator" />
+        </div>
       </div>
     </StyledApp>
   )

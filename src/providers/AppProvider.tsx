@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { createCtx } from './createCtx'
 import { MessageType, RequestFunc, VOID_JWT } from '../websockets'
-import { Props, ReadyState, User } from '../types'
+import {
+  BucketMessage,
+  BucketMessageType,
+  BucketName,
+  Props,
+  ReadyState,
+  User
+} from '../types'
 
 type ContextProps = {
   authorized: boolean
@@ -14,19 +21,36 @@ type ContextProps = {
   // setUser: (user: User) => void
   request: RequestFunc
   logOut: () => void
+  messageBuckets: { [index: BucketName]: BucketMessage[] }
 }
 
 const [useApp, CtxProvider] = createCtx<ContextProps>()
 
 const AppProvider = ({ children }: Props) => {
   const [routeResult, setRouteResult] = useState('/')
-  const [readyState, setReadyState] = useState(null)
+  const [readyState, setReadyState] = useState(0)
   const [webSocket, setWebSocket] = useState<WebSocket>(null)
   const [webSocketId, setWebSocketId] = useState()
   const [jwt, setJwt] = useState<string>(VOID_JWT)
   const [user, setUser] = useState<User>(null)
   const [authorized, setAuthorized] = useState(false)
+  const [messageBuckets, setMessageBuckets] = useState<{
+    [index: BucketName]: BucketMessage[]
+  }>({ rest: [], ws: [] })
 
+  const updateMessageBucket = async (
+    bucket: BucketName,
+    type: BucketMessageType,
+    message: string
+  ): Promise<void> => {
+    const d = new Date()
+    const timeStamp = `[${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}] `
+    const m: BucketMessage = { timeStamp, type, message }
+    // const mb = {[bucket]: [m, ...messageBuckets[bucket]]}
+    const b = [m, ...messageBuckets[bucket]]
+    const buckets = { ...messageBuckets, [bucket]: b }
+    setMessageBuckets(buckets)
+  }
   const logOut = () => {
     setJwt(VOID_JWT)
     setUser(null)
@@ -76,6 +100,7 @@ const AppProvider = ({ children }: Props) => {
           case MessageType.InvalidCredentials:
             setJwt(VOID_JWT)
             setAuthorized(false)
+            updateMessageBucket('ws', 'warning', 'invalid credentials')
             break
           default:
             console.log(`Unknown message type: ${tjo['type']}`)
@@ -143,7 +168,8 @@ const AppProvider = ({ children }: Props) => {
         readyState,
         jwt,
         user,
-        webSocketId
+        webSocketId,
+        messageBuckets
         // setUser,
       }}
     >

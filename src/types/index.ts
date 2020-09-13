@@ -25,3 +25,11 @@ export type APIConnection = {
   readyState: ReadyState
   jwt: string | null
 }
+
+export type BucketMessageType = 'info' | 'warning' | 'danger'
+export type BucketName = 'rest' | 'ws'
+export type BucketMessage = {
+  timeStamp: string
+  type: BucketMessageType
+  message: string
+}
