@@ -4,6 +4,7 @@ import { Main } from './Main'
 import ContentHeader from './ContentHeader'
 import { Console } from './Console'
 import { CommandInterpreter } from './CommandInterpreter'
+import HaloProvider from '../providers/HaloProvider'
 
 const StyledApp = styled.div`
   display: flex;
@@ -25,13 +26,15 @@ export const App = () => {
   return (
     <StyledApp>
       <ContentHeader />
-      <div className="content">
-        <Main />
-        <Console />
-      </div>
-      <footer>
-        <CommandInterpreter />
-      </footer>
+      <HaloProvider>
+        <div className="content">
+          <Main />
+          <Console />
+        </div>
+        <footer>
+          <CommandInterpreter />
+        </footer>
+      </HaloProvider>
     </StyledApp>
   )
 }
