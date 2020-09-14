@@ -4,6 +4,7 @@ import * as cssProp from 'styled-components/cssprop'
 import '@blueprintjs/icons/lib/css/blueprint-icons.css'
 import '@blueprintjs/core/lib/css/blueprint.css'
 import 'normalize.css'
+import './scss/main.scss'
 import { App } from './components/App'
 import { AppProvider } from './providers/AppProvider'
 

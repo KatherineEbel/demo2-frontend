@@ -1,6 +1,7 @@
 {
   "include": ["src/**/*"],
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "ES6",
     "esModuleInterop": true,
     "jsx": "react",
