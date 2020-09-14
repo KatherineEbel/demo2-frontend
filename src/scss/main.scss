@@ -1,3 +1,4 @@
+@import "@blueprintjs/core/lib/scss/variables";
 *,
 *::before,
 *::after {
@@ -10,6 +11,10 @@
 html {
   box-sizing: border-box;
   font-size: 75.5%;
+}
+
+body {
+  padding-top: $pt-navbar-height;
 }
 
 html,
@@ -26,4 +31,20 @@ body,
   top: 0;
   left: 0;
   overflow: hidden;
+}
+
+.bp3-drawer-header {
+  justify-content: center;
+
+  .bp3-button {
+    width: 30%;
+  }
+}
+
+.bp3-drawer-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 50%;
 }

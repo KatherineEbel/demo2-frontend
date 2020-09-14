@@ -14,7 +14,6 @@ import {
 } from '@blueprintjs/core'
 
 const StyledCommandInterpreter = styled.div`
-  grid-column: 1 / span 2;
   width: 100vw;
   border: 1px dashed #ccc;
   border-radius: 2px;

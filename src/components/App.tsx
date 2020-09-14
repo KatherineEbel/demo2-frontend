@@ -1,35 +1,37 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Navigation } from './Navigation'
 import { Main } from './Main'
 import ContentHeader from './ContentHeader'
 import { Console } from './Console'
 import { CommandInterpreter } from './CommandInterpreter'
 
 const StyledApp = styled.div`
-  //background: #101e41;
-  //color: whitesmoke;
-  position: relative;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 20rem 1fr;
-  padding: 10px;
-  .navigation-header {
-    padding: 0.2rem;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  footer {
+    flex-grow: 1;
+  }
+  .content {
+    display: flex;
+    flex-grow: 15;
+    justify-content: space-around;
+    align-items: flex-start;
   }
 `
 
 export const App = () => {
   return (
     <StyledApp>
-      <div className="navigation-header" />
       <ContentHeader />
-      <Navigation />
-      <Main />
-      <Console />
-      <CommandInterpreter />
+      <div className="content">
+        <Main />
+        <Console />
+      </div>
+      <footer>
+        <CommandInterpreter />
+      </footer>
     </StyledApp>
   )
 }

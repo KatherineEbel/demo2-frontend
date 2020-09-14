@@ -1,14 +1,18 @@
 import styled from 'styled-components'
 import React, { useState } from 'react'
-import { Button } from './Button'
 import { useApp } from '../providers/AppProvider'
 import { MessageType, VOID_JWT } from '../websockets'
+import { Alignment, Button, InputGroup, Navbar } from '@blueprintjs/core'
+import { Navigation } from './Navigation'
 
 const StyledContentHeader = styled.div`
   min-height: 3rem;
   padding: 0.2rem;
   display: flex;
   flex-direction: row;
+  span {
+    margin: 0 8px 0 8px;
+  }
   .app {
     &-label {
       font-family: 'Hackman-Bold', sans-serif;
@@ -17,35 +21,17 @@ const StyledContentHeader = styled.div`
       font-style: italic;
     }
   }
-  .login-inputs {
-    position: absolute;
-    right: 5px;
-    max-width: 35rem;
-    display: flex;
-    flex-direction: row;
+  .bp3-button {
+    margin-left: 8px;
+  }
 
-    .text-link-btn {
-      display: inline-block;
-    }
-    input {
-      text-indent: 0.5rem;
-      color: #cbcbcd;
-      transition: border-color 150ms, box-shadow 150ms ease-out;
-      border-radius: 4px;
-      border: 1px solid #f4f4f5;
-      &:last-of-type {
-        margin-left: 5px;
-      }
-    }
-    &:hover {
-      color: #171718;
-      box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1),
-        0 3px 24px rgba(48, 51, 51, 0.09);
-    }
+  .bp3-input-group:last-of-type {
+    margin-left: 8px;
   }
 `
 export default () => {
   const { webSocketId, request, authorized, logOut } = useApp()
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const handleLogin = async () => {
@@ -62,36 +48,54 @@ export default () => {
   }
   return (
     <StyledContentHeader>
-      <div className="ws-client-id">
-        <span className="app-label">Client Id: </span>
-        <span className="app-italic">{webSocketId}</span>
-        <span className="app-label">Interacting with:</span>
-        <span className="app-italic">??</span>
-      </div>
-      <div className="login-inputs">
-        {!authorized ? (
-          <>
-            <input
-              type="text"
-              placeholder="email"
-              onChange={e => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="password"
-              onChange={e => setPassword(e.target.value)}
-            />
+      <Navbar fixedToTop className="bp3-dark">
+        <Navbar.Group align={Alignment.LEFT}>
+          <Button
+            fill={false}
+            large
+            icon="menu-open"
+            onClick={() => setDrawerOpen(true)}
+          />
+          <Navbar.Heading>
+            <span className="app-label">Client Id: </span>
+            <span className="app-italic">{webSocketId}</span>
+            <span className="app-label">Interacting with:</span>
+            <span className="app-italic">??</span>
+          </Navbar.Heading>
+        </Navbar.Group>
+        <Navbar.Group align={Alignment.RIGHT}>
+          {!authorized ? (
+            <>
+              <InputGroup
+                type="email"
+                leftIcon="envelope"
+                placeholder="email"
+                onChange={e => setEmail(e.target.value)}
+              />
+              <InputGroup
+                type="password"
+                leftIcon="lock"
+                placeholder="password"
+                onChange={e => setPassword(e.target.value)}
+              />
+              <Button
+                text="Log In"
+                type="button"
+                intent="primary"
+                onClick={handleLogin}
+              />
+            </>
+          ) : (
             <Button
-              text="Log In"
+              text="Log Out"
               type="button"
-              classes={['text-link-btn']}
-              onClick={handleLogin}
+              intent="primary"
+              onClick={logOut}
             />
-          </>
-        ) : (
-          <Button type="button" text="Log Out" onClick={logOut} />
-        )}
-      </div>
+          )}
+        </Navbar.Group>
+      </Navbar>
+      <Navigation open={drawerOpen} handleClose={setDrawerOpen} />
     </StyledContentHeader>
   )
 }
