@@ -3,6 +3,8 @@ import { Dashboard } from './Dashboard'
 import { navigate, useRoutes } from 'hookrouter'
 import { useApp } from '../providers/AppProvider'
 import { Button, Classes, Drawer, Icon, Position } from '@blueprintjs/core'
+import Halo from './halo/Halo'
+import NavTree from './NavTree'
 
 interface INavigationProps {
   open: boolean
@@ -15,7 +17,8 @@ export const Navigation: FunctionComponent<INavigationProps> = ({
 }) => {
   const appState = useApp()
   const routes = {
-    '/': () => <Dashboard />
+    '/': () => <Dashboard />,
+    '/halo': () => <Halo />
   }
   const handleRoute = r => {
     navigate(r)
@@ -41,15 +44,7 @@ export const Navigation: FunctionComponent<INavigationProps> = ({
       </div>
       <div className={Classes.DRAWER_BODY}>
         <Button icon="home" intent="primary" onClick={() => handleRoute('/')} />
-        <h3 className="section-title">React</h3>
-        <h3 className="section-title">CSS</h3>
-        <h3 className="section-title">Auth</h3>
-        <h3 className="section-title">OS</h3>
-        <h3 className="section-title">Network</h3>
-        <h3 className="section-title">Defensive</h3>
-        <h3 className="section-title">Offensive</h3>
-        <h3 className="section-title">Microservices</h3>
-        <h3 className="section-title">Go Concurrency</h3>
+        <NavTree setRoute={handleRoute} handleSelect={handleClose} />
       </div>
     </Drawer>
   )
