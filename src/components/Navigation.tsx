@@ -1,9 +1,6 @@
-import React, { FunctionComponent, useEffect } from 'react'
-import { Dashboard } from './Dashboard'
-import { navigate, useRoutes } from 'hookrouter'
+import React, { FunctionComponent } from 'react'
 import { useApp } from '../providers/AppProvider'
 import { Button, Classes, Drawer, Icon, Position } from '@blueprintjs/core'
-import Halo from './halo/Halo'
 import NavTree from './NavTree'
 
 interface INavigationProps {
@@ -16,19 +13,7 @@ export const Navigation: FunctionComponent<INavigationProps> = ({
   handleClose
 }) => {
   const appState = useApp()
-  const routes = {
-    '/': () => <Dashboard />,
-    '/halo': () => <Halo />
-  }
-  const handleRoute = r => {
-    navigate(r)
-    appState.setRouteResult(routeResult)
-  }
-  const routeResult = useRoutes(routes)
-
-  useEffect(() => {
-    handleRoute('/')
-  }, [])
+  const { setCurrentRoute } = appState
   return (
     <Drawer
       position={Position.LEFT}
@@ -43,8 +28,12 @@ export const Navigation: FunctionComponent<INavigationProps> = ({
         <Icon icon="code" iconSize={40} intent="warning" />
       </div>
       <div className={Classes.DRAWER_BODY}>
-        <Button icon="home" intent="primary" onClick={() => handleRoute('/')} />
-        <NavTree setRoute={handleRoute} handleSelect={handleClose} />
+        <Button
+          icon="home"
+          intent="primary"
+          onClick={() => setCurrentRoute('/')}
+        />
+        <NavTree setRoute={setCurrentRoute} handleSelect={handleClose} />
       </div>
     </Drawer>
   )

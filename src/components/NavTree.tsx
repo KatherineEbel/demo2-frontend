@@ -10,10 +10,12 @@ interface INavTreeProps {
   handleSelect: (value: boolean) => void
 }
 class NavTree extends Component<INavTreeProps, INavTreeState> {
-  constructor(props) {
-    super(props)
-    const nodes = createTreeState(this.handleRoute.bind(this))
-    this.state = { nodes }
+  public state: INavTreeState = {
+    nodes: null
+  }
+  componentDidMount() {
+    const { setRoute } = this.props
+    this.setState({ nodes: createTree(setRoute) })
   }
 
   public render() {
@@ -27,11 +29,6 @@ class NavTree extends Component<INavTreeProps, INavTreeState> {
         className={Classes.ELEVATION_1}
       />
     )
-  }
-
-  private handleRoute = (route: string) => {
-    const { setRoute } = this.props
-    setRoute(route)
   }
 
   private handleNodeExpand = (nodeData: ITreeNode) => {
@@ -63,7 +60,7 @@ class NavTree extends Component<INavTreeProps, INavTreeState> {
   }
 }
 
-const createTreeState = (handleRoute: (route: string) => void): ITreeNode[] => [
+const createTree = (handleRoute: (route: string) => void): ITreeNode[] => [
   {
     id: 0,
     hasCaret: true,

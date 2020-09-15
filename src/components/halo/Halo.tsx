@@ -41,7 +41,6 @@ const Halo: FunctionComponent = () => {
   const [zValid, setZValid] = useState(true)
 
   useEffect(() => {
-    debugger
     setCValid(String(c).match(/[0-9]+/) !== null && c >= 0 && c <= 37)
     setZValid(String(z).match(/[0-9]+/) !== null && z >= 0 && z <= 500)
   }, [c, z])

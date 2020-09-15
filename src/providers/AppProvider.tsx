@@ -9,34 +9,44 @@ import {
   ReadyState,
   User
 } from '../types'
+import { Dashboard } from '../components/Dashboard'
+import Halo from '../components/halo/Halo'
+import { navigate, useRoutes } from 'hookrouter'
 
-type ContextProps = {
+type AppContextType = {
   authorized: boolean
-  routeResult: string
-  setRouteResult: (route: string) => void
+  currentRoute: string
+  setCurrentRoute: (route: string) => void
+  routeResult: any
   readyState: number
   webSocketId: string
   jwt: string
   user: User
-  // setUser: (user: User) => void
   request: RequestFunc
   logOut: () => void
-  messageBuckets: { [index: BucketName]: BucketMessage[] }
+  messageBuckets: { [key in BucketName]: BucketMessage[] }
 }
 
-const [useApp, CtxProvider] = createCtx<ContextProps>()
+const [useApp, CtxProvider] = createCtx<AppContextType>()
+const routes = {
+  '/': () => <Dashboard />,
+  '/halo': () => <Halo />
+}
 
 const AppProvider = ({ children }: Props) => {
-  const [routeResult, setRouteResult] = useState('/')
+  const routeResult = useRoutes(routes)
+  const [currentRoute, setCurrentRoute] = useState('/')
   const [readyState, setReadyState] = useState(0)
   const [webSocket, setWebSocket] = useState<WebSocket>(null)
   const [webSocketId, setWebSocketId] = useState()
   const [jwt, setJwt] = useState<string>(VOID_JWT)
   const [user, setUser] = useState<User>(null)
   const [authorized, setAuthorized] = useState(false)
-  const [messageBuckets, setMessageBuckets] = useState<{
-    [index: BucketName]: BucketMessage[]
-  }>({ rest: [], ws: [] })
+  const [messageBuckets, setMessageBuckets] = useState<
+    {
+      [key in BucketName]: BucketMessage[]
+    }
+  >({ rest: [], ws: [] })
 
   const updateMessageBucket = async (
     bucket: BucketName,
@@ -151,6 +161,10 @@ const AppProvider = ({ children }: Props) => {
   }, [readyState])
 
   useEffect(() => {
+    navigate(currentRoute)
+  }, [currentRoute])
+
+  useEffect(() => {
     if (authorized && jwt !== VOID_JWT) {
       console.log('User Authorized')
       window.localStorage.setItem('demo2-JWT', jwt)
@@ -161,8 +175,9 @@ const AppProvider = ({ children }: Props) => {
     <CtxProvider
       value={{
         authorized,
+        currentRoute,
+        setCurrentRoute,
         routeResult,
-        setRouteResult,
         logOut,
         request,
         readyState,
