@@ -4,6 +4,8 @@ import { Props } from '../types'
 type HaloContextType = {
   zoom: number
   setZoom: (number) => void
+  currentZoom: number
+  setCurrentZoom: (value: number) => void
   count: number
   setCount: (number) => void
   cells: any[]
@@ -29,6 +31,7 @@ const HaloProvider = ({ children }: Props) => {
   const [cells, setCells] = useState<any[]>([])
   const [index, setIndex] = useState<number>(0)
   const [zoom, setZoom] = useState<number>(0)
+  const [currentZoom, setCurrentZoom] = useState(0)
   const [angleCSS, setAngleCSS] = useState<string>('rotateY(0deg)')
   const [zoomCSS, setZoomCSS] = useState<string>('translateZ(0)')
   const [useArraySlice, setUseArraySlice] = useState<boolean>(false)
@@ -45,6 +48,8 @@ const HaloProvider = ({ children }: Props) => {
         setIndex,
         zoom,
         setZoom,
+        currentZoom,
+        setCurrentZoom,
         angleCSS,
         setAngleCSS,
         zoomCSS,
