@@ -19,7 +19,6 @@ const StyledHalo = styled.div`
     width: 50%;
     align-self: center;
     flex-grow: 0;
-    flex-direction: column;
   }
 
   .halo {
@@ -29,8 +28,8 @@ const StyledHalo = styled.div`
   }
 
   .bp3-input-group:last-of-type {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 `
 
@@ -50,8 +49,8 @@ const Halo: FunctionComponent = () => {
   const [zValid, setZValid] = useState(true)
 
   useEffect(() => {
-    setCValid(String(c).match(/[0-9]+/) !== null && c >= 0 && c <= 37)
-    setZValid(String(z).match(/[0-9]+/) !== null && z >= 0 && z <= 500)
+    setCValid(c >= 0 && c <= 37)
+    setZValid(z >= 0 && z <= 500)
   }, [c, z])
 
   const setHaloCount = () => {
@@ -59,7 +58,8 @@ const Halo: FunctionComponent = () => {
   }
 
   const setHaloZoom = () => {
-    zValid && setZoom(c)
+    console.log('Setting halo zoom: ', z)
+    zValid && setZoom(z)
   }
 
   return (
@@ -69,7 +69,7 @@ const Halo: FunctionComponent = () => {
           name="count"
           type="number"
           placeholder={`Halo Count ${count}`}
-          onChange={e => setC(e.target.value)}
+          onChange={e => setC(+e.target.value)}
           rightElement={
             <Button
               disabled={!cValid}
@@ -84,7 +84,7 @@ const Halo: FunctionComponent = () => {
           name="zoom"
           type="number"
           placeholder={`Applied Zoom ${zoom}`}
-          onChange={e => setZ(e.target.value)}
+          onChange={e => setZ(+e.target.value)}
           rightElement={
             <Button
               disabled={!zValid}

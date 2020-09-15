@@ -103,6 +103,12 @@ export class CommandInterpreter extends React.Component<
           label="Shift Left"
           onKeyDown={this.handleKeyDown}
         />
+        <Hotkey
+          global={true}
+          combo="shift"
+          label="Shift"
+          onKeyDown={this.handleKeyDown}
+        />
       </Hotkeys>
     )
   }
@@ -116,21 +122,16 @@ export class CommandInterpreter extends React.Component<
       performRotation
     } = this.context
     const { key, modifiers } = combo
-    // if shift key and left arrow doRotate(-1)
-    // if shift key and right arrow doRotate(1)
     let newZoomVal: number
     if (modifiers) {
-      if (modifiers !== 8) {
-        return
+      if (modifiers && !key) {
+        newZoomVal = currentZoom + zoom
+        setZoomCSS(`translateZ(${newZoomVal}px)`)
+        console.log('Zoom CSS', zoomCSS)
       }
-      newZoomVal = currentZoom + -zoom
-      console.log('Zoom CSS', zoomCSS)
       key === 'right' && performRotation(1)
       key === 'left' && performRotation(-1)
-    } else if (!modifiers && zoom !== 0) {
-      newZoomVal = currentZoom + zoom
     }
-    setZoomCSS(`translateZ(${newZoomVal || zoom}px)`)
   }
 
   private clearCombo = () => {
@@ -153,7 +154,13 @@ export class CommandInterpreter extends React.Component<
     if (combo === null) {
       return null
     } else {
-      const key = combo.modifiers && combo.modifiers === 8 ? 'shift' : combo.key
+      let key: string
+      if (combo.modifiers) {
+        key = 'shift' + (combo.key ? `+ ${combo.key}` : '')
+      } else {
+        key = combo.key
+      }
+      console.log(key)
       return <KeyCombo combo={key} />
     }
   }
