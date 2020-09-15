@@ -16,6 +16,8 @@ const StyledHalo = styled.div`
   margin-right: 2rem;
   .inputs {
     display: flex;
+    width: 50%;
+    align-self: center;
     flex-grow: 0;
     flex-direction: column;
   }

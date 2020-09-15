@@ -22,7 +22,7 @@ const HaloWheel: FunctionComponent = () => {
     <StyledHaloWheel HaloZoomCss={zoomCSS} HaloAngleCss={angleCSS}>
       {count > 0 &&
         cells.map((cell, idx) => (
-          <HaloCell content={idx + 1} transform={cell} />
+          <HaloCell key={idx} content={idx + 1} transform={cell} />
         ))}
     </StyledHaloWheel>
   )

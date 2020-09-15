@@ -10,7 +10,7 @@ import { ReadyState } from '../types'
 const StyledConsole = styled.div`
   display: flex;
   justify-content: flex-end;
-  flex-grow: 1;
+  flex-grow: 0;
   .bp3-tab {
     color: aliceblue;
   }

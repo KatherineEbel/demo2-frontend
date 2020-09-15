@@ -56,7 +56,6 @@ const AppProvider = ({ children }: Props) => {
     const d = new Date()
     const timeStamp = `[${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}] `
     const m: BucketMessage = { timeStamp, type, message }
-    // const mb = {[bucket]: [m, ...messageBuckets[bucket]]}
     const b = [m, ...messageBuckets[bucket]]
     const buckets = { ...messageBuckets, [bucket]: b }
     setMessageBuckets(buckets)

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {
   Button,
@@ -12,6 +12,7 @@ import {
   Intent,
   KeyCombo
 } from '@blueprintjs/core'
+import { HaloContext } from '../providers/HaloProvider'
 
 const StyledCommandInterpreter = styled.div`
   width: 100vw;
@@ -36,13 +37,16 @@ interface ICommandInterpreterState {
 }
 
 @HotkeysTarget
-export class CommandInterpreter extends Component<
+export class CommandInterpreter extends React.Component<
   any,
   ICommandInterpreterState
 > {
   public state: ICommandInterpreterState = {
     combo: null
   }
+  static contextType = HaloContext
+  declare context: React.ContextType<typeof HaloContext>
+
   public render() {
     return (
       <StyledCommandInterpreter>
@@ -71,12 +75,6 @@ export class CommandInterpreter extends Component<
       <Hotkeys>
         <Hotkey
           global={true}
-          combo="shift"
-          label="Shift"
-          onKeyDown={this.handleKeyDown}
-        />
-        <Hotkey
-          global={true}
           combo="left"
           label="Left"
           onKeyDown={this.handleKeyDown}
@@ -93,8 +91,46 @@ export class CommandInterpreter extends Component<
           label="Enter"
           onKeyDown={this.handleKeyDown}
         />
+        <Hotkey
+          global={true}
+          combo="shift + right"
+          label="Shift Right"
+          onKeyDown={this.handleKeyDown}
+        />
+        <Hotkey
+          global={true}
+          combo="shift + left"
+          label="Shift Left"
+          onKeyDown={this.handleKeyDown}
+        />
       </Hotkeys>
     )
+  }
+
+  private processCombo = (combo: IKeyCombo) => {
+    const {
+      currentZoom,
+      zoom,
+      setZoomCSS,
+      zoomCSS,
+      performRotation
+    } = this.context
+    const { key, modifiers } = combo
+    // if shift key and left arrow doRotate(-1)
+    // if shift key and right arrow doRotate(1)
+    let newZoomVal: number
+    if (modifiers) {
+      if (modifiers !== 8) {
+        return
+      }
+      newZoomVal = currentZoom + -zoom
+      console.log('Zoom CSS', zoomCSS)
+      key === 'right' && performRotation(1)
+      key === 'left' && performRotation(-1)
+    } else if (!modifiers && zoom !== 0) {
+      newZoomVal = currentZoom + zoom
+    }
+    setZoomCSS(`translateZ(${newZoomVal || zoom}px)`)
   }
 
   private clearCombo = () => {
@@ -108,6 +144,7 @@ export class CommandInterpreter extends Component<
     e.stopPropagation()
     const combo = getKeyCombo(e)
     this.setState({ combo })
+    this.processCombo(combo)
     this.clearCombo()
   }
 

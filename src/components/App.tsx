@@ -16,7 +16,7 @@ const StyledApp = styled.div`
   }
   .content {
     display: flex;
-    flex-grow: 15;
+    flex-grow: 10;
     padding: 1rem;
     justify-content: space-around;
     align-items: flex-start;
