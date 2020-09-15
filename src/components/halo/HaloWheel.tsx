@@ -1,19 +1,13 @@
 import styled from 'styled-components'
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useContext } from 'react'
 import HaloCell from './StyledHaloCell'
-import { useHalo } from '../../providers/HaloProvider'
+import { HaloContext } from '../../providers/HaloProvider'
 
 interface IStyledHaloWheelProps {
   HaloZoomCss: string
   HaloAngleCss: string
 }
 
-// interface IHaloWheelProps {
-//   HaloZoomCss: string
-//   HaloAngleCss: string
-//   HaloCount: number
-//   HaloCells: any[]
-// }
 const StyledHaloWheel = styled.div<IStyledHaloWheelProps>`
   width: 100%;
   height: 100%;
@@ -23,7 +17,7 @@ const StyledHaloWheel = styled.div<IStyledHaloWheelProps>`
   transform-style: preserve-3d;
 `
 const HaloWheel: FunctionComponent = () => {
-  const { count, angleCSS, zoomCSS, cells } = useHalo()
+  const { count, angleCSS, zoomCSS, cells } = useContext(HaloContext)
   return (
     <StyledHaloWheel HaloZoomCss={zoomCSS} HaloAngleCss={angleCSS}>
       {count > 0 &&

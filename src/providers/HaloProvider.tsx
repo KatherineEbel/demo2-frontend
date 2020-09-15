@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { createCtx } from './createCtx'
+import React, { createContext, useState } from 'react'
 import { Props } from '../types'
 
-type ContextProps = {
+type HaloContextType = {
   zoom: number
   setZoom: (number) => void
   count: number
@@ -23,7 +22,7 @@ type ContextProps = {
   setTheta: (value: number) => void
 }
 
-const [useHalo, CtxProvider] = createCtx<ContextProps>()
+export const HaloContext = createContext<HaloContextType>(null)
 
 const HaloProvider = ({ children }: Props) => {
   const [count, setCount] = useState<number>(0)
@@ -36,7 +35,7 @@ const HaloProvider = ({ children }: Props) => {
   const [radius, setRadius] = useState<any>(null)
   const [theta, setTheta] = useState<any>(null)
   return (
-    <CtxProvider
+    <HaloContext.Provider
       value={{
         count,
         setCount,
@@ -59,9 +58,8 @@ const HaloProvider = ({ children }: Props) => {
       }}
     >
       {children}
-    </CtxProvider>
+    </HaloContext.Provider>
   )
 }
 
-export { useHalo }
 export default HaloProvider

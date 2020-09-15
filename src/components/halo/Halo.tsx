@@ -1,19 +1,26 @@
 import styled from 'styled-components'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 import { Button, InputGroup, Switch } from '@blueprintjs/core'
 import HaloScene from './HaloScene'
-import { useHalo } from '../../providers/HaloProvider'
+import { HaloContext } from '../../providers/HaloProvider'
 
 const StyledHalo = styled.div`
-  display: grid;
-  grid-template-columns: 30rem 1fr;
-  grid-gap: 2px;
-  .left {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  margin-right: 2rem;
+  .inputs {
     display: flex;
+    flex-grow: 0;
     flex-direction: column;
   }
 
-  .right {
+  .halo {
     position: relative;
     overflow: hidden;
     min-height: 30rem;
@@ -33,7 +40,7 @@ const Halo: FunctionComponent = () => {
     setCount,
     useArraySlice,
     setUseArraySlice
-  } = useHalo()
+  } = useContext(HaloContext)
 
   const [z, setZ] = useState(zoom)
   const [c, setC] = useState(count)
@@ -55,7 +62,7 @@ const Halo: FunctionComponent = () => {
 
   return (
     <StyledHalo>
-      <div className="left">
+      <div className="inputs">
         <InputGroup
           name="count"
           type="number"
@@ -93,7 +100,7 @@ const Halo: FunctionComponent = () => {
           onChange={() => setUseArraySlice(!useArraySlice)}
         />
       </div>
-      <div className="right">
+      <div className="halo">
         <HaloScene />
       </div>
     </StyledHalo>

@@ -8,8 +8,9 @@ import { useApp } from '../providers/AppProvider'
 import { ReadyState } from '../types'
 
 const StyledConsole = styled.div`
-  grid-column: 1 / span 2;
-  max-width: 100vw;
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
   .bp3-tab {
     color: aliceblue;
   }

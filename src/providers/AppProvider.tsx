@@ -35,7 +35,7 @@ const routes = {
 
 const AppProvider = ({ children }: Props) => {
   const routeResult = useRoutes(routes)
-  const [currentRoute, setCurrentRoute] = useState('/')
+  const [currentRoute, setCurrentRoute] = useState('/halo')
   const [readyState, setReadyState] = useState(0)
   const [webSocket, setWebSocket] = useState<WebSocket>(null)
   const [webSocketId, setWebSocketId] = useState()
