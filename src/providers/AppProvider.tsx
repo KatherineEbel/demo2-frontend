@@ -12,7 +12,8 @@ import {
 import { Dashboard } from '../components/Dashboard'
 import Halo from '../components/halo/Halo'
 import { navigate, useRoutes } from 'hookrouter'
-import FilePond from '../components/FilePond_js'
+import FilePond from '../components/FilePond'
+import AdminPanel from '../components/AdminPanel'
 
 type AppContextType = {
   authorized: boolean
