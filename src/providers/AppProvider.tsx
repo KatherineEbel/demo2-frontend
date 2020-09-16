@@ -27,13 +27,19 @@ type AppContextType = {
   request: RequestFunc
   logOut: () => void
   messageBuckets: { [key in BucketName]: BucketMessage[] }
+  updateMessageBucket: (
+    bucket: BucketName,
+    type: BucketMessageType,
+    message: string
+  ) => Promise<void>
 }
 
 const [useApp, CtxProvider] = createCtx<AppContextType>()
 const routes = {
   '/': () => <Dashboard />,
   '/halo': () => <Halo />,
-  '/filepond': () => <FilePond />
+  '/filepond': () => <FilePond />,
+  '/admin-panel': () => <AdminPanel />
 }
 
 const AppProvider = ({ children }: Props) => {
@@ -67,7 +73,8 @@ const AppProvider = ({ children }: Props) => {
     setJwt(VOID_JWT)
     setUser(null)
     setAuthorized(false)
-    window.localStorage.removeItem('demo2JWT')
+    window.localStorage.removeItem('demo2-JWT')
+    updateMessageBucket('ws', 'success', 'Log Out')
   }
   const heartbeat = async () => {
     setTimeout(() => {
@@ -94,9 +101,9 @@ const AppProvider = ({ children }: Props) => {
         switch (tjo.type as MessageType) {
           case MessageType.ClientWebSocketId:
             setWebSocketId(tjo.data)
+            updateMessageBucket('ws', 'success', `client id: ${tjo.data}`)
             break
           case MessageType.FatClientList:
-            console.log(tjo['data'])
             break
           case MessageType.JwtToken:
             setUser({ ...JSON.parse(tjo.data), password: 'hidden' })
@@ -108,6 +115,7 @@ const AppProvider = ({ children }: Props) => {
             }
             const { Valid } = JSON.parse(tjo.data)
             setAuthorized(Valid)
+            updateMessageBucket('ws', 'success', 'Authentication Successful')
             break
           case MessageType.InvalidCredentials:
             setJwt(VOID_JWT)
@@ -186,8 +194,8 @@ const AppProvider = ({ children }: Props) => {
         jwt,
         user,
         webSocketId,
-        messageBuckets
-        // setUser,
+        messageBuckets,
+        updateMessageBucket
       }}
     >
       {children}

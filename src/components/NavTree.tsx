@@ -77,6 +77,12 @@ const createTree = (handleRoute: (route: string) => void): ITreeNode[] => [
       {
         id: 2,
         label: <div onClick={() => handleRoute('/filepond')}>File Pond</div>
+      },
+      {
+        id: 3,
+        label: (
+          <div onClick={() => handleRoute('/admin-panel')}>Admin Panel</div>
+        )
       }
     ]
   },
