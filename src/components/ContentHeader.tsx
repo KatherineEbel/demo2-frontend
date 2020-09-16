@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { useApp } from '../providers/AppProvider'
 import { MessageType, VOID_JWT } from '../websockets'
 import { Alignment, Button, InputGroup, Navbar } from '@blueprintjs/core'
@@ -10,6 +10,7 @@ const StyledContentHeader = styled.div`
   padding: 0.2rem;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
   span {
     margin: 0 8px 0 8px;
   }
@@ -53,7 +54,7 @@ export default () => {
           <Button
             fill={false}
             large
-            icon="menu-open"
+            icon="drawer-left-filled"
             onClick={() => setDrawerOpen(true)}
           />
           <Navbar.Heading>
@@ -70,13 +71,17 @@ export default () => {
                 type="email"
                 leftIcon="envelope"
                 placeholder="email"
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
               />
               <InputGroup
                 type="password"
                 leftIcon="lock"
                 placeholder="password"
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
               />
               <Button
                 text="Log In"

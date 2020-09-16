@@ -11,6 +11,9 @@ const StyledWebSocketPanel = styled.div`
   span.warning {
     color: #f29d49;
   }
+  span.success {
+    color: #15b371;
+  }
 `
 export const WebSocketPanel: FunctionComponent = () => {
   const { messageBuckets } = useApp()

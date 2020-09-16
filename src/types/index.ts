@@ -26,7 +26,7 @@ export type APIConnection = {
   jwt: string | null
 }
 
-export type BucketMessageType = 'info' | 'warning' | 'danger'
+export type BucketMessageType = 'info' | 'warning' | 'danger' | 'success'
 export type BucketName = 'rest' | 'ws'
 export type BucketMessage = {
   timeStamp: string

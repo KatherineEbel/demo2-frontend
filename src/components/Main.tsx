@@ -7,6 +7,7 @@ const StyledMain = styled.main`
   flex-grow: 1;
   justify-content: center;
   font-family: 'Hackman', sans-serif;
+  width: 100%;
 `
 export const Main = () => {
   const { routeResult } = useApp()

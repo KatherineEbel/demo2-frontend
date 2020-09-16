@@ -12,13 +12,14 @@ const StyledApp = styled.div`
   flex-direction: column;
 
   footer {
-    flex-grow: 1;
+    flex: 1;
   }
   .content {
     display: flex;
-    flex-grow: 10;
-    padding: 1rem;
-    justify-content: space-around;
+    flex-grow: 1;
+    padding: 3rem;
+    justify-content: space-between;
+    flex-direction: column;
     align-items: flex-start;
   }
 `
@@ -31,10 +32,10 @@ export const App = () => {
         <div className="content">
           <Main />
           <Console />
+          <footer>
+            <CommandInterpreter />
+          </footer>
         </div>
-        <footer>
-          <CommandInterpreter />
-        </footer>
       </HaloProvider>
     </StyledApp>
   )

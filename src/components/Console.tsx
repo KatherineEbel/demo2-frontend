@@ -3,7 +3,7 @@ import { Icon, Intent, Tab, Tabs } from '@blueprintjs/core'
 import { InterfacePanel } from './panels/Interface'
 import styled from 'styled-components'
 import { WebSocketPanel } from './panels/WebSocket'
-import { RestPanel } from './panels/Rest'
+import RestPanel from './panels/Rest'
 import { useApp } from '../providers/AppProvider'
 import { ReadyState } from '../types'
 
@@ -11,6 +11,7 @@ const StyledConsole = styled.div`
   display: flex;
   justify-content: flex-end;
   flex-grow: 0;
+  margin-bottom: 2rem;
   .bp3-tab {
     color: aliceblue;
   }

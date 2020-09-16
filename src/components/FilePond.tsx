@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react'
-import { FilePond, registerPlugin } from 'react-filepond'
+import { FilePond as FP, registerPlugin } from 'react-filepond'
 import 'filepond/dist/filepond.min.css'
 
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
@@ -10,7 +10,7 @@ import { VOID_JWT } from '../websockets'
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
-const FilePond_js: FunctionComponent = () => {
+const FilePond: FunctionComponent = () => {
   const { jwt } = useApp()
   const [files, setFiles] = useState([])
   const jsx = () => {
@@ -18,7 +18,7 @@ const FilePond_js: FunctionComponent = () => {
       return <div>Must be logged in...</div>
     }
     return (
-      <FilePond
+      <FP
         files={files}
         allowMultiple
         onupdatefiles={setFiles}
@@ -45,4 +45,4 @@ const FilePond_js: FunctionComponent = () => {
   return jsx()
 }
 
-export default FilePond_js
+export default FilePond

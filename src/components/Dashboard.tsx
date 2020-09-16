@@ -4,9 +4,8 @@ import styled from 'styled-components'
 import { useApp } from '../providers/AppProvider'
 
 const StyledDashboard = styled.div`
-  .react-json-view {
-    padding: 10px;
-  }
+  max-width: 80%;
+  flex: 1;
 `
 export const Dashboard = () => {
   const appData = useApp()
@@ -14,9 +13,12 @@ export const Dashboard = () => {
     <StyledDashboard>
       <ReactJson
         src={appData}
-        theme="summerfruit:inverted"
+        style={{ overflow: 'hidden', padding: '10px' }}
+        // theme="summerfruit:inverted"
+        theme="pop"
         iconStyle="triangle"
         collapsed
+        collapseStringsAfterLength={70}
       />
     </StyledDashboard>
   )
