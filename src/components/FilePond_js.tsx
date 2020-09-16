@@ -4,16 +4,11 @@ import 'filepond/dist/filepond.min.css'
 
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import FilePondPluginFileEncode from 'filepond-plugin-file-encode'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import { useApp } from '../providers/AppProvider'
 import { VOID_JWT } from '../websockets'
 
-registerPlugin(
-  FilePondPluginImageExifOrientation,
-  FilePondPluginImagePreview,
-  FilePondPluginFileEncode
-)
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
 const FilePond_js: FunctionComponent = () => {
   const { jwt } = useApp()
