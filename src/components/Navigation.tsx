@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { useApp } from '../providers/AppProvider'
-import { Button, Classes, Drawer, Icon, Position } from '@blueprintjs/core'
+import { Classes, Drawer, Icon, Position } from '@blueprintjs/core'
 import NavTree from './NavTree'
 
 interface INavigationProps {
@@ -28,11 +28,6 @@ export const Navigation: FunctionComponent<INavigationProps> = ({
         <Icon icon="code" iconSize={40} intent="warning" />
       </div>
       <div className={Classes.DRAWER_BODY}>
-        <Button
-          icon="home"
-          intent="primary"
-          onClick={() => setCurrentRoute('/')}
-        />
         <NavTree setRoute={setCurrentRoute} handleSelect={handleClose} />
       </div>
     </Drawer>

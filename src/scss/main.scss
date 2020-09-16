@@ -45,7 +45,10 @@ body,
 .bp3-drawer-body {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 50%;
+  padding-top: 2rem;
+}
+
+.filepond--wrapper {
+  flex: 1;
+  margin-right: 3rem;
 }

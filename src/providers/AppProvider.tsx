@@ -12,6 +12,7 @@ import {
 import { Dashboard } from '../components/Dashboard'
 import Halo from '../components/halo/Halo'
 import { navigate, useRoutes } from 'hookrouter'
+import FilePond from '../components/FilePond_js'
 
 type AppContextType = {
   authorized: boolean
@@ -30,12 +31,13 @@ type AppContextType = {
 const [useApp, CtxProvider] = createCtx<AppContextType>()
 const routes = {
   '/': () => <Dashboard />,
-  '/halo': () => <Halo />
+  '/halo': () => <Halo />,
+  '/filepond': () => <FilePond />
 }
 
 const AppProvider = ({ children }: Props) => {
   const routeResult = useRoutes(routes)
-  const [currentRoute, setCurrentRoute] = useState('/halo')
+  const [currentRoute, setCurrentRoute] = useState('/')
   const [readyState, setReadyState] = useState(0)
   const [webSocket, setWebSocket] = useState<WebSocket>(null)
   const [webSocketId, setWebSocketId] = useState()

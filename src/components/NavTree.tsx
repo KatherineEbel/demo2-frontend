@@ -1,4 +1,4 @@
-import { Button, Classes, ITreeNode, Tree } from '@blueprintjs/core'
+import { Icon, ITreeNode, Tree } from '@blueprintjs/core'
 import React, { Component } from 'react'
 
 interface INavTreeState {
@@ -26,7 +26,6 @@ class NavTree extends Component<INavTreeProps, INavTreeState> {
         onNodeClick={this.handleNodeClick}
         onNodeCollapse={this.handleNodeCollapse}
         onNodeExpand={this.handleNodeExpand}
-        className={Classes.ELEVATION_1}
       />
     )
   }
@@ -63,68 +62,62 @@ class NavTree extends Component<INavTreeProps, INavTreeState> {
 const createTree = (handleRoute: (route: string) => void): ITreeNode[] => [
   {
     id: 0,
-    hasCaret: true,
-    icon: 'folder-close',
-    label: 'React',
-    childNodes: [
-      {
-        id: 1,
-        label: (
-          <Button
-            type="button"
-            text="Halo"
-            onClick={() => handleRoute('/halo')}
-          />
-        )
-      }
-    ]
+    hasCaret: false,
+    label: <Icon onClick={() => handleRoute('/')} icon="home" />
   },
   {
     id: 1,
     hasCaret: true,
-    icon: 'folder-close',
-    label: 'CSS'
+    label: 'React',
+    childNodes: [
+      {
+        id: 1,
+        label: <div onClick={() => handleRoute('/halo')}>React</div>
+      },
+      {
+        id: 2,
+        label: <div onClick={() => handleRoute('/filepond')}>File Pond</div>
+      }
+    ]
   },
   {
     id: 2,
     hasCaret: true,
-    icon: 'folder-close',
-    label: 'Auth'
+    label: 'CSS'
   },
   {
     id: 3,
     hasCaret: true,
-    icon: 'folder-close',
-    label: 'OS'
+    label: 'Auth'
   },
   {
     id: 4,
     hasCaret: true,
-    icon: 'folder-close',
-    label: 'Network'
+    label: 'OS'
   },
   {
     id: 5,
     hasCaret: true,
-    icon: 'folder-close',
-    label: 'Defensive'
+    label: 'Network'
   },
   {
     id: 6,
     hasCaret: true,
-    icon: 'folder-close',
-    label: 'Offensive'
+    label: 'Defensive'
   },
   {
     id: 7,
     hasCaret: true,
-    icon: 'folder-close',
-    label: 'Microservices'
+    label: 'Offensive'
   },
   {
     id: 8,
     hasCaret: true,
-    icon: 'folder-close',
+    label: 'Microservices'
+  },
+  {
+    id: 9,
+    hasCaret: true,
     label: 'Go Concurrency'
   }
 ]
