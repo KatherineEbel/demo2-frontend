@@ -118,18 +118,24 @@ const SignUp: FunctionComponent = () => {
     e.preventDefault()
     const { database } = data
     delete data.database
-    console.log(data)
-    debugger
-    console.log(errors)
-    const {
-      data: { type }
-    } = await axios.post(
+    const response = await axios.post(
       `https://demo2.kathyebel.dev:1200/rest/admin/create/user/${database}`,
       data,
       { headers: { Authorization: `Bearer ${jwt}` } }
     )
-    if (type === 'rest-jwt-token-invalid') {
-      await updateMessageBucket('rest', 'danger', 'JWT Token is Invalid')
+    // TODO: extract logic to somewhere else
+    switch (response.data.type) {
+      case 'rest-jwt-token-invalid':
+        await updateMessageBucket('rest', 'warning', 'JWT Token is Invalid')
+        break
+      case 'rest-test-create-mysql-user-failure':
+        await updateMessageBucket('rest', 'danger', 'Unable to create user')
+        break
+      case 'rest-test-create-mysql-user-success':
+        await updateMessageBucket('rest', 'success', 'User Created!')
+        break
+      default:
+        break
     }
   }
 
