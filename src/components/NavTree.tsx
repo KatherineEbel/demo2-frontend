@@ -89,7 +89,13 @@ const createTree = (handleRoute: (route: string) => void): ITreeNode[] => [
   {
     id: 2,
     hasCaret: true,
-    label: 'CSS'
+    label: 'CSS',
+    childNodes: [
+      {
+        id: 1,
+        label: <div onClick={() => handleRoute('/flex')}>React</div>
+      }
+    ]
   },
   {
     id: 3,

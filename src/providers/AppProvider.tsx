@@ -14,6 +14,7 @@ import Halo from '../components/halo/Halo'
 import { navigate, useRoutes } from 'hookrouter'
 import FilePond from '../components/FilePond'
 import AdminPanel from '../components/AdminPanel'
+import Flex from '../flex/Flex'
 
 type AppContextType = {
   authorized: boolean
@@ -39,7 +40,8 @@ const routes = {
   '/': () => <Dashboard />,
   '/halo': () => <Halo />,
   '/filepond': () => <FilePond />,
-  '/admin-panel': () => <AdminPanel />
+  '/admin-panel': () => <AdminPanel />,
+  '/flex': () => <Flex />
 }
 
 const AppProvider = ({ children }: Props) => {
