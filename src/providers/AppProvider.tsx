@@ -15,6 +15,7 @@ import { navigate, useRoutes } from 'hookrouter'
 import FilePond from '../components/FilePond'
 import AdminPanel from '../components/AdminPanel'
 import Flex from '../flex/Flex'
+import Animations from '../components/Animations'
 
 type AppContextType = {
   authorized: boolean
@@ -41,12 +42,13 @@ const routes = {
   '/halo': () => <Halo />,
   '/filepond': () => <FilePond />,
   '/admin-panel': () => <AdminPanel />,
-  '/flex': () => <Flex />
+  '/flex': () => <Flex />,
+  '/animations': () => <Animations />
 }
 
 const AppProvider = ({ children }: Props) => {
   const routeResult = useRoutes(routes)
-  const [currentRoute, setCurrentRoute] = useState('/')
+  const [currentRoute, setCurrentRoute] = useState('/animations')
   const [readyState, setReadyState] = useState(0)
   const [webSocket, setWebSocket] = useState<WebSocket>(null)
   const [webSocketId, setWebSocketId] = useState()
